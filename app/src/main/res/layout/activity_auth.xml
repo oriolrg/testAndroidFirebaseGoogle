@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".`AuthActivity.kt`">
+    tools:context=".`AuthActivity`">
 
     <LinearLayout
+        android:id="@+id/authLayout"
         android:layout_width="0dp"
-        android:layout_height="729dp"
+        android:layout_height="199dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
+        android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,7 +49,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <Space
@@ -78,6 +80,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/googleButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="16dp"
+            android:text="Google"
+            android:textAlignment="textStart"
+            android:textColor="#2D2727" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
