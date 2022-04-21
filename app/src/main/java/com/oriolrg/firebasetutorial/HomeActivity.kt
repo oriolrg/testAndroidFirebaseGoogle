@@ -1,5 +1,7 @@
 package com.oriolrg.firebasetutorial
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -7,7 +9,8 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 
 enum class ProviderType{
-    BASIC
+    BASIC,
+    GOOGLE
 }
 class HomeActivity : AppCompatActivity() {
 
@@ -22,6 +25,13 @@ class HomeActivity : AppCompatActivity() {
         val provider = bundle?.getString("provider")
         //?:"" si no existeix envia string buit
         setup(email ?: "", provider ?:"")
+
+        //Guardadr dades de l'usuaria autenticat a nivell de sessio
+
+        val prefs: SharedPreferences.Editor? = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit()
+        prefs?.putString("email", email)
+        prefs?.putString("provider", provider)
+        prefs?.apply()
     }
     private fun setup(email: String, provider: String){
         val emailTextView = findViewById<TextView>(R.id.emailTextView)
@@ -33,6 +43,10 @@ class HomeActivity : AppCompatActivity() {
         //Accions al clicar el boto
         logOutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+            //Borrat de dades
+            val prefs: SharedPreferences.Editor? = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit()
+            prefs?.clear()
+            prefs?.apply()
             //retorna  a la pantalla anterior
             onBackPressed()
         }
