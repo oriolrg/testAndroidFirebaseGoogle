@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Firebase Tutorial</string>
     <string name="prefs_file">com.oriolrg.firebasetutorial.PREFERENCE_FILE_KEY</string>
+
 </resources>

@@ -62,15 +62,15 @@ class AuthActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance()
                     .createUserWithEmailAndPassword(emailEditText.text.toString(),
                         passwordEditText.text.toString()).addOnCompleteListener {
-                        //Comprobo si hi ha errors en el registre
-                        if(it.isSuccessful){
-                            //Si registre ha estat correcte mostro nova pantalla HomeActivity
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
-                        }else{
-                            //Sii hi ha error mostro missatge alerta
-                            showAlert()
-                        }
-                    }
+                            //Comprobo si hi ha errors en el registre
+                            if(it.isSuccessful){
+                                //Si registre ha estat correcte mostro nova pantalla HomeActivity
+                                showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                            }else{
+                                //Sii hi ha error mostro missatge alerta
+                                showAlert()
+                            }
+                }
             }
         }
         //Logica botó accedir
@@ -81,15 +81,15 @@ class AuthActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance()
                     .signInWithEmailAndPassword(emailEditText.text.toString(),
                         passwordEditText.text.toString()).addOnCompleteListener {
-                        //Comprobo si hi ha errors en el registre
-                        if(it.isSuccessful){
-                            //Si registre ha estat correcte mostro nova pantalla HomeActivity
-                            showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
-                        }else{
-                            //Sii hi ha error mostro missatge alerta
-                            showAlert()
+                            //Comprobo si hi ha errors en el registre
+                            if(it.isSuccessful){
+                                //Si registre ha estat correcte mostro nova pantalla HomeActivity
+                                showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+                            }else{
+                                //Sii hi ha error mostro missatge alerta
+                                showAlert()
+                            }
                         }
-                    }
             }
         }
         googleButton.setOnClickListener {
