@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import android.widget.Button
 import android.widget.EditText
@@ -16,10 +17,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity() {
     private val GOOGLE_SIGN_IN = 100
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -35,14 +36,19 @@ class AuthActivity : AppCompatActivity() {
         //Coprobem si existeix sessió
         session()
     }
+
+    override fun onStart() {
+        super.onStart()
+        authLayout.visibility = View.VISIBLE
+    }
     private fun session(){
         //Recuperem si tenim guardat email i provider
-        val prefs: SharedPreferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE)
+        val prefs: SharedPreferences = getSharedPreferences(getString(R.string.prefs_file), MODE_PRIVATE)
         val email:String? = prefs.getString("email", null)
         val provider:String? = prefs.getString("provider", null)
         //si es diferent que null significa que tenim iniciada sessio a la app
         if (email != null && provider != null){
-            //authLayout.visivility = VIew.INVISIBLE
+            authLayout.visibility = View.INVISIBLE
             showHome(email, ProviderType.valueOf(provider))
         }
     }
@@ -66,6 +72,7 @@ class AuthActivity : AppCompatActivity() {
                             if(it.isSuccessful){
                                 //Si registre ha estat correcte mostro nova pantalla HomeActivity
                                 showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+
                             }else{
                                 //Sii hi ha error mostro missatge alerta
                                 showAlert()
@@ -85,6 +92,7 @@ class AuthActivity : AppCompatActivity() {
                             if(it.isSuccessful){
                                 //Si registre ha estat correcte mostro nova pantalla HomeActivity
                                 showHome(it.result?.user?.email ?: "", ProviderType.BASIC)
+
                             }else{
                                 //Sii hi ha error mostro missatge alerta
                                 showAlert()
@@ -114,10 +122,11 @@ class AuthActivity : AppCompatActivity() {
     }
     private fun showHome(email:String, provider: ProviderType){
         //Mostrarem la pantalla
+
         val homeInetent = Intent(this, HomeActivity::class.java).apply {
             //Pasem a la nova pantalla email i proveidor
             putExtra("email", email)
-            putExtra("provider", provider)
+            putExtra("provider", provider.toString())
         }
         //Naveguem a la nova pantalla un cop tenim apunt l'Intent
         startActivity(homeInetent)

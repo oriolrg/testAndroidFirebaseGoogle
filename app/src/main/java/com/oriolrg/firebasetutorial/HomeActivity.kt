@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
         val bundle:Bundle? = intent.extras
         val email = bundle?.getString("email")
         val provider = bundle?.getString("provider")
+
         //?:"" si no existeix envia string buit
         setup(email ?: "", provider ?:"")
 
