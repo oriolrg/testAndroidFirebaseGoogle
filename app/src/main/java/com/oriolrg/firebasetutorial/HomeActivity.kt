@@ -20,7 +20,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         //Setup
         //recuperem les dades de l'Intent email i provider
-        //TODO Mirar que es Bundle i Intent
+        //Bundle es un objecte per passar dades entre processos o activitats diferents
+        //Un Intent es un objeto que proporciona vinculación en tiempo de ejecución entre componentes separados, como dos actividades
         val bundle:Bundle? = intent.extras
         val email = bundle?.getString("email")
         val provider = bundle?.getString("provider")

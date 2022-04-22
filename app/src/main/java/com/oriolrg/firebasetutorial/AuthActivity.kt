@@ -122,7 +122,8 @@ class AuthActivity : AppCompatActivity() {
     }
     private fun showHome(email:String, provider: ProviderType){
         //Mostrarem la pantalla
-
+        //Bundle es un objecte per passar dades entre processos o activitats diferents
+        //Un Intent es un objeto que proporciona vinculación en tiempo de ejecución entre componentes separados, como dos actividades
         val homeInetent = Intent(this, HomeActivity::class.java).apply {
             //Pasem a la nova pantalla email i proveidor
             putExtra("email", email)
