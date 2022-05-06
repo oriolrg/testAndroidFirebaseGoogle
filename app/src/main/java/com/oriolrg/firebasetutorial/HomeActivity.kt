@@ -1,5 +1,6 @@
 package com.oriolrg.firebasetutorial
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +8,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 enum class ProviderType{
     BASIC,
@@ -25,7 +28,19 @@ class HomeActivity : AppCompatActivity() {
         val bundle:Bundle? = intent.extras
         val email = bundle?.getString("email")
         val provider = bundle?.getString("provider")
+        var firestore: FirebaseFirestore
+        firestore = FirebaseFirestore.getInstance()
+        firestore.collection("tracks").document("correr").collection("track")
+            .get()
+            .addOnSuccessListener {documents->
+                for (document in documents) {
+                    Log.d(TAG, "${document.id} => ${document.getData('btt')}")
+                }
 
+            }
+            .addOnFailureListener{
+                Log.d(TAG, "get failed with ", it)
+            }
         //?:"" si no existeix envia string buit
         setup(email ?: "", provider ?:"")
 
