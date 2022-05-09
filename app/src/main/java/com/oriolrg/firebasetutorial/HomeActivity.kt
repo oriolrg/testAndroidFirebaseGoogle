@@ -3,12 +3,11 @@ package com.oriolrg.firebasetutorial
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -16,6 +15,14 @@ enum class ProviderType{
     BASIC,
     GOOGLE
 }
+data class TracksInfo(
+    var tracksList: ArrayList<TrackItem> = arrayListOf()
+)
+data class TrackItem(
+    var nom: String = "",
+    var KmTotals: Float,
+
+)
 class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +35,15 @@ class HomeActivity : AppCompatActivity() {
         val bundle:Bundle? = intent.extras
         val email = bundle?.getString("email")
         val provider = bundle?.getString("provider")
-        var firestore: FirebaseFirestore
-        firestore = FirebaseFirestore.getInstance()
-        firestore.collection("tracks").document("correr").collection("track")
+        var tracks: FirebaseFirestore
+
+        tracks = FirebaseFirestore.getInstance()
+        tracks.collection("tracks").document("correr").collection("track")
             .get()
             .addOnSuccessListener {documents->
                 for (document in documents) {
-                    Log.d(TAG, "${document.id} => ${document.getData('btt')}")
+
+                    Log.d(TAG, "${document.data}")
                 }
 
             }
